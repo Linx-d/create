@@ -379,11 +379,42 @@ ECharts是一款可视化开发库，底层用的是javascript封装，所以可
 </html>
 ```
 
+### Echarts
+
+- 设置标线
+
+~~~
+markLine: {
+    data: [
+        { yAxis: 37.0 }  //设置标线
+    ]
+}
+~~~
+
+- X轴
+
+~~~
+xAxis: {
+                            type: 'category',
+                            boundaryGap: false,
+                            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                        }
+~~~
+
+- Y轴
+
+~~~
+yAxis: {
+                            type: 'value',
+                            axisLabel: {
+                                formatter: '{value} °C' //Y坐标
+                            }
+                        },
+~~~
+
 
 
 ## git记录
-
-
 
 
 
@@ -395,4 +426,80 @@ git  commit -m " Map--- map chart"
 ~~~
 
 
+
+## 提交表单AJAX
+
+提交地址：http:// + 192.168.0.180 + 端口号(:8081) + {{bendi}}/user/boundDevice 中的插值表达式后的内容({{}})
+
+http://192.168.0.180:8081/user/boundDevice
+
+提交方法：method: post;
+
+设置header
+
+
+
+表单提交
+
+~~~
+<form action="http://192.168.0.180:8081/user/boundDevice" method="post">
+</form>
+~~~
+
+## postMan 使用
+
+将后台拿过来的json文件导入到postman中，在collections中使用。
+
+- Headers 中设置content-type
+- Body中是json数据
+
+
+
+**环境变量**
+
+无线体温.postman_environment.json
+
+**数据**
+
+无线体温.postman_collection(3).json
+
+
+
+
+
+# AJAX
+
+## AJAX提交数据
+
+~~~
+$('#bind_user').on('click', function() {
+            var data = {
+                        "imei":"12135456784",
+                        "online":true,
+                        "name":"李五",
+                        "tel":"13695862541",
+                        "sex":"男",
+                        "age":"22",
+                        "address":"重庆市北碚区"
+                    };//必须为一个对象且要和接受的数据一一对应
+            $.ajax({
+                url: "http://192.168.0.180:8081/user/boundDevice",
+                data: JSON.stringify(data), //转为json格式的数据
+                //Origin: "http://192.168.0.180:8081",
+                type: "post", //请求类型
+                dataType: "json",  //内容类型
+                contentType: "application/json",
+                success: function(data) {
+                    // data = jQuery.parseJSON(data);  //dataType指明了返回数据为json类型，故不需要再反序列化
+                    console.log(data);
+                    console.log('ok');
+                },
+                error: function(data) {
+                    console.log($("input[name='name']").val());
+                    console.log(data);
+                    console.log('error');
+                }
+            });
+        });
+~~~
 
