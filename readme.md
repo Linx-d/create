@@ -22,6 +22,14 @@ remove the file manually to continue.
 rm -f ./.git/index.lock
 ~~~
 
+git ssh 地址：
+
+~~~
+git@github.com:Linx-d/create.git
+~~~
+
+
+
 # logs
 
 ~~~
