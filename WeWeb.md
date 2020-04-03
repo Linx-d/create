@@ -503,3 +503,8 @@ $('#bind_user').on('click', function() {
         });
 ~~~
 
+
+
+# [Nginx](https://www.cnblogs.com/jingmoxukong/p/5945200.html)
+
+Xshell 6
