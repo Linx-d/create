@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+	<script src="ajaxMy.js"></script>
+</head>
+<body>
+	<script>
+
+/*----------------获取电子围栏信息 login--------------------------*/
+		/*本地*/
+		localAjaxN("/rail/listRail?limit=10&page=1", g_sc, g_er); 
+		function g_sc(data) {
+			console.log('获取电子围栏');
+		}
+		function g_er(data) {
+			console.log('error')
+		}
+		/*服务器
+		serverAjaxN("/rail/listRail?limit=10&page=1", gs_sc, gs_er); 
+		function gs_sc(data) {
+			console.log('服务器获取电子围栏');
+		}
+		function gs_er(data) {
+			console.log('error')
+		}
+		*/
+/*----------------获取电子围栏信息 end--------------------------*/		
+
+/*----------------修改电子围栏信息  login--------------------------*/
+		/*本地*/
+		var obj = {
+		      "latitude": "1212.21",
+		      "longitude": "32125.2134",
+		      "radius": "200",
+		      "userId": 2
+		  };
+		localAjax("/rail/updateRail", obj, c_sc, c_er);
+		function c_sc(data) {
+		  console.log('修改电子围栏信息');
+		}
+		function c_er(data) {
+		  console.log('error');
+		}
+
+		/*服务器
+		var obj = {
+		      "latitude": latitude,
+		      "longitude": longitude,
+		      "radius": radius,
+		      "userId": 2
+		  };
+		localAjaxN("/rail/updateRail", obj, cs_sc, cs_er);
+		function cs_sc(data) {
+		  console.log('服务器修改电子围栏信息');
+		}
+		function cs_er(data) {
+		  console.log('error');
+		}
+		*/
+/*----------------修改电子围栏信息 end--------------------------*/
+
+/*----------------获取企业微信jssdkConfig login--------------------------*/
+		/*本地*/
+		var js_obj = {
+			corpId:"ww2e7b5f3c87c34c17",
+			url:"iot.chinautech.com"
+		}		
+		localAjax("/rail/updateRail", js_obj, q_sc, q_er);
+		function q_sc(data) {
+			console.log('获取企业微信jssdkConfig');
+		}
+		function q_er(data) {
+			console.log('error');
+		}
+		/*服务器
+		var js_obj = {
+			corpId:"ww2e7b5f3c87c34c17",
+			url:"iot.chinautech.com"
+		}		
+		serverAjax("/rail/updateRail", js_obj, qs_sc, qs_er);
+		function qs_sc(data) {
+			console.log('服务器获取企业微信jssdkConfig');
+		}
+		function qs_er(data) {
+			console.log('error');
+		}
+		*/
+/*----------------获取企业微信jssdkConfig end--------------------------*/
+
+/*----------------解绑用户围栏 login--------------------------*/
+		/*本地*/
+		var jbu_obj = [
+				{
+					"railId":2,
+					"userId":16
+					
+				},
+					{
+					"railId":2,
+					"userId":2
+					
+				}
+			]	
+		localAjax("/rail/batchDeleteRailUser", jbu_obj, jbu_sc, jbu_er);
+		function jbu_sc(data) {
+			console.log('解绑用户围栏');
+		}
+		function jbu_er(data) {
+			console.log('error');
+		}
+		/*服务器
+		var jbu_obj = [
+				{
+					"railId":2,
+					"userId":16
+					
+				},
+					{
+					"railId":2,
+					"userId":2
+					
+				}
+			]	
+		serverAjax("/rail/batchDeleteRailUser", jbu_obj, jbus_sc, jbus_er);
+		function jbus_sc(data) {
+			console.log('服务器解绑用户围栏');
+		}
+		function jbus_er(data) {
+			console.log('error');
+		}
+		*/
+/*----------------解绑用户围栏 end--------------------------*/
+
+/*----------------批量添加用户围栏 login--------------------------*/
+        /*本地*/
+        var pa_obj = [
+				{
+					"railId":2,
+					"userId":15
+				}
+			]
+        localAjax("/rail/batchInsertRailUser", pa_obj, pa_sc, pa_er);
+        function pa_sc(data) {
+        	console.log('批量添加用户围栏');
+        }
+        function pa_er(data) {
+        	console.log('error');
+        }
+        /*服务器
+        var pa_obj = [
+				{
+					"railId":2,
+					"userId":15
+				}
+			]
+        serverAjax("/rail/batchInsertRailUser", pa_obj, pas_sc, pas_er);
+        function pas_sc(data) {
+        	console.log('服务器批量添加用户围栏');
+        }
+        function pas_er(data) {
+        	console.log('error');
+        }
+        */
+/*----------------批量添加用户围栏 end--------------------------*/
+
+/*----------------解绑企业微信 login--------------------------*/
+    /*本地*/
+    localAjaxN("/user/unBoundWxByUserId?userId=2", jbw_sc, jbw_er); 
+    function jbw_sc(data) {
+    	console.log('解绑企业微信');
+    }
+    function jbw_er(data) {
+    	console.log('error')
+    }
+    /*服务器
+    serverAjaxN("/user/unBoundWxByUserId?userId=2", jbws_sc, jbws_er); 
+    function jbws_sc(data) {
+    	console.log('服务器解绑企业微信');
+    }
+    function jbws_er(data) {
+    	console.log('error');
+    }
+    */
+/*----------------解绑企业微信 end--------------------------*/
+
+/*----------------locahost login--------------------------*/
+    /*本地*/
+    localAjaxN("/deviceData/listUserLocation", lo_sc, lo_er); 
+    function lo_sc(data) {
+    	console.log('locahost');
+    }
+    function lo_er(data) {
+    	console.log('error')
+    }
+    /*服务器
+    serverAjaxN("/deviceData/listUserLocation", jbs_sc, jbs_er); 
+    function jbs_sc(data) {
+    	console.log('服务器locahost');
+    }
+    function jbs_er(data) {
+    	console.log('error');
+    }
+    */
+/*----------------locahost end--------------------------*/
+
+/*----------------根据用户id获取用户信息 login--------------------------*/
+    /*本地*/
+    localAjaxN("/user/getUserById?userId=2", id_sc, id_er); 
+    function id_sc(data) {
+    	console.log('根据用户id获取用户信息');
+    }
+    function id_er(data) {
+    	console.log('error');
+    }
+    /*服务器
+    serverAjaxN("/user/getUserById?userId=2", ids_sc, ids_er); 
+    function ids_sc(data) {
+    	console.log('服务器根据用户id获取用户信息');
+    }
+    function ids_er(data) {
+    	console.log('error');
+    }
+    */
+/*----------------根据用户id获取用户信息 end--------------------------*/
+
+/*----------------根据用户id获取设备最新数据 login--------------------------*/
+    /*本地*/
+    localAjaxN("/device/getDeviceInfoByUserId?userId=15", us_sc, us_er); 
+    function us_sc(data) {
+    	console.log('根据用户id获取设备最新数据');
+    }
+    function us_er(data) {
+    	console.log('error');
+    }
+    /*服务器
+    serverAjaxN("/device/getDeviceInfoByUserId?userId=15", uss_sc, uss_er); 
+    function uss_sc(data) {
+    	console.log('服务器根据用户id获取设备最新数据');
+    }
+    function uss_er(data) {
+    	console.log('error');
+    }
+    */
+/*----------------根据用户id获取设备最新数据 end--------------------------*/
+
+/*----------------获取用户告警信息 login--------------------------*/
+            /*本地*/
+            var dg_obj = {
+					"userId":2
+				}
+            localAjax("/alarm/getAlarmByUserId", dg_obj, dg_sc, dg_er);
+            function dg_sc(data) {
+            	console.log('获取用户告警信息');
+            }
+            function dg_er(data) {
+            	console.log('error');
+            }
+            /*服务器
+            var dg_obj = {
+					"userId":2
+				}
+            serverAjax("/alarm/getAlarmByUserId", dg_obj, dgs_sc, dgs_er);
+            function dgs_sc(data) {
+            	console.log('服务器获取用户告警信息');
+            }
+            function dgs_er(data) {
+            	console.log('error');
+            }
+            */
+/*----------------获取用户告警信息 end--------------------------*/
+
+/*----------------获取用户历史数据信息 login--------------------------*/
+            /*本地*/
+            var ls_obj = {
+					"userId":2
+				}
+            localAjax("/deviceData/listUserLocationById?page=1&limit=10", ls_obj, ls_sc, ls_er);
+            function ls_sc(data) {
+            	console.log('获取用户历史数据信息');
+            }
+            function ls_er(data) {
+            	console.log('error');
+            }
+            /*服务器
+            var ls_obj = {
+					"userId":2
+				}
+            serverAjax("/deviceData/listUserLocationById?page=1&limit=10", ls_obj, lss_sc, lss_er);
+            function lss_sc(data) {
+            	console.log('服务器获取用户历史数据信息');
+            }
+            function lss_er(data) {
+            	console.log('error');
+            }
+            */    
+/*----------------获取用户历史数据信息 end--------------------------*/
+
+/*----------------解绑设备 login--------------------------*/
+            /*本地*/
+            var sb_obj = {
+				"deviceImei":"12135456784",
+				"userId":"13",
+				"deviceId":"325"
+			}
+            localAjax("/user/unBoundDevice", sb_obj, sb_sc, sb_er);
+            function sb_sc(data) {
+            	console.log('解绑设备');
+            }
+            function sb_er(data) {
+            	console.log('error');
+            }
+            /*服务器
+            var sb_obj = {
+				"deviceImei":"12135456784",
+				"userId":"13",
+				"deviceId":"325"
+			}
+            serverAjax("/user/unBoundDevice", sb_obj, sbs_sc, sbs_er);
+            function sbs_sc(data) {
+            	console.log('服务器解绑设备');
+            }
+            function sbs_er(data) {
+            	console.log('error');
+            }
+            */
+/*----------------解绑设备 end--------------------------*/
+
+/*----------------绑定设备 login--------------------------*/
+            /*本地*/
+            var bd_obj = {
+					"imei":"12135456784",
+					"online":true,
+					"name":"李五",
+					"tel":"13695862541",
+					"sex":"男",
+					"age":"22",
+					"address":"重庆市北碚区"				}
+            localAjax("/user/boundDevice", bd_obj, bd_sc, bd_er);
+            function bd_sc(data) {
+            	console.log('绑定设备');
+            }
+            function bd_er(data) {
+            	console.log('error');
+            }
+            /*服务器
+            var bd_obj = {
+					"imei":"12135456784",
+					"online":true,
+					"name":"李五",
+					"tel":"13695862541",
+					"sex":"男",
+					"age":"22",
+					"address":"重庆市北碚区"				}
+            serverAjax("/user/boundDevice", bd_obj, bds_sc, bds_er);
+            function bds_sc(data) {
+            	console.log('服务器绑定设备');
+            }
+            function bds_er(data) {
+            	console.log('error');
+            }
+            */
+/*----------------绑定设备 end--------------------------*/
+
+/*----------------获取用户最新位置信息 login--------------------------*/
+    /*本地*/
+    localAjaxN("/deviceData/listUserLocation", nw_sc, nw_er); 
+    function nw_sc(data) {
+    	console.log('获取用户最新位置信息');
+    }
+    function nw_er(data) {
+    	console.log('error');
+    }
+    /*服务器
+    serverAjaxN("/deviceData/listUserLocation", nws_sc, nws_er); 
+    function nws_sc(data) {
+    	console.log('服务器获取用户最新位置信息');
+    }
+    function nws_er(data) {
+    	console.log('error');
+    }
+    */
+/*----------------获取用户最新位置信息 end--------------------------*/
+
+/*----------------插入设备 login--------------------------*/
+    /*本地*/
+    var cr_obj = {
+		"imei":3234243120,
+		"electric":1,
+		"online":2
+		}
+    localAjax("/device/insert", cr_obj, cr_sc, cr_er);
+    function cr_sc(data) {
+    	console.log('插入设备');
+    }
+    function cr_er(data) {
+    	console.log('error');
+    }
+    /*服务器
+    var cr_obj = {
+		"imei":3234243120,
+		"electric":1,
+		"online":2
+		}
+    serverAjax("/device/insert", cr_obj, crs_sc, crs_er);
+    function crs_sc(data) {
+    	console.log('服务器插入设备');
+    }
+    function crs_er(data) {
+    	console.log('error');
+    }
+    */
+/*----------------插入设备 end--------------------------*/
+
+/*----------------批量插入设备 login--------------------------*/
+    /*本地*/
+    var pcr_obj = [
+	{
+		"imei":22135456782,
+		"electric":"1"
+	},	
+	{
+		"imei":2234243120,
+		"electric":"1",
+		"online":1
+	},
+		{
+		"imei":2234243121,
+		"electric":"1"
+	},
+		{
+		"imei":2234243122,
+		"electric":"1"
+	},
+		{
+		"imei":2234243123,
+		"electric":"1"
+	}
+	]
+    localAjax("/device//batchInsertDevice", pcr_obj, pcr_sc, pcr_er);
+    function pcr_sc(data) {
+    	console.log('批量插入设备');
+    }
+    function pcr_er(data) {
+    	console.log('error');
+    }
+    /*服务器
+    var pcr_obj = [
+	{
+		"imei":22135456782,
+		"electric":"1"
+	},	
+	{
+		"imei":2234243120,
+		"electric":"1",
+		"online":1
+	},
+		{
+		"imei":2234243121,
+		"electric":"1"
+	},
+		{
+		"imei":2234243122,
+		"electric":"1"
+	},
+		{
+		"imei":2234243123,
+		"electric":"1"
+	}
+	]
+    serverAjax("/device//batchInsertDevice", pcr_obj, pcrs_sc, pcrs_er);
+    function pcrs_sc(data) {
+    	console.log('服务器批量插入设备');
+    }
+    function pcrs_er(data) {
+    	console.log('error');
+    }
+    */
+/*----------------批量插入设备 end--------------------------*/
+
+/*----------------查询设备状态 login--------------------------*/
+    /*本地*/
+    var cx_obj = [
+	{
+		"imei":12135456782
+	},	
+	{
+		"imei":12135456783
+	},
+		{
+		"imei":12135456784
+	},
+		{
+		"imei":12135456786
+	},
+		{
+		"imei":12135456785
+	}
+	]
+    localAjax("/device/listDeviceByImei?page=1&limit=10", cx_obj, cx_sc, cx_er);
+    function cx_sc(data) {
+    	console.log('查询设备状态');
+    }
+    function cx_er(data) {
+    	console.log('error');
+    }
+    /*服务器
+    var cx_obj = [
+	{
+		"imei":12135456782
+	},	
+	{
+		"imei":12135456783
+	},
+		{
+		"imei":12135456784
+	},
+		{
+		"imei":12135456786
+	},
+		{
+		"imei":12135456785
+	}
+	]
+    serverAjax("/device/listDeviceByImei?page=1&limit=10", cx_obj, cxs_sc, cxs_er);
+    function cxs_sc(data) {
+    	console.log('服务器查询设备状态');
+    }
+    function cxs_er(data) {
+    	console.log('error');
+    }
+    */
+/*----------------查询设备状态 end--------------------------*/
+
+/*----------------根据设备状态查询设备 login--------------------------*/
+    /*本地*/
+    localAjaxN("/device/listDeviceByOnline?page=1&limit=10&online=true", gus_sc, gus_er); 
+    function gus_sc(data) {
+    	console.log('根据设备状态查询设备');
+    }
+    function gus_er(data) {
+    	console.log('error');
+    }
+    /*服务器
+    serverAjaxN("/device/listDeviceByOnline?page=1&limit=10&online=true", guss_sc, guss_er); 
+    function guss_sc(data) {
+    	console.log('服务器根据设备状态查询设备');
+    }
+    function guss_er(data) {
+    	console.log('error');
+    }
+    */
+/*----------------根据设备状态查询设备 end--------------------------*/
+
+/*----------------设备上传数据 login--------------------------*/
+    /*本地*/
+    var sup_obj = {
+			"imei":"869075033888688",
+			"temperature":"39.8",
+			"latitude":"29.490295",
+			"longitude":"106.486654",
+			"electric":"2"
+		}
+    localAjax("/deviceData/add", sup_obj, sup_sc, sup_er);
+    function sup_sc(data) {
+    	console.log('设备上传数据');
+    }
+    function sup_er(data) {
+    	console.log('error');
+    }
+    /*服务器
+    var sup_obj = {
+			"imei":"869075033888688",
+			"temperature":"39.8",
+			"latitude":"29.490295",
+			"longitude":"106.486654",
+			"electric":"2"
+		}
+    serverAjax("/deviceData/add", sup_obj, sups_sc, sups_er);
+    function sups_sc(data) {
+    	console.log('服务器设备上传数据');
+    }
+    function sups_er(data) {
+    	console.log('error');
+    }
+    */
+/*----------------设备上传数据 end--------------------------*/
+	</script>
+</body>
+</html>
