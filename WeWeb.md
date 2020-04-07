@@ -471,8 +471,9 @@ http://192.168.0.180:8081/user/boundDevice
 
 ## AJAX提交数据
 
-~~~
-$('#bind_user').on('click', function() {
+### 有参数
+
+~~~javascript
             var data = {
                         "imei":"12135456784",
                         "online":true,
@@ -500,10 +501,50 @@ $('#bind_user').on('click', function() {
                     console.log('error');
                 }
             });
-        });
+~~~
+
+### 无参数
+
+var url_head = "http://192.168.0.180:8081/api"; //http 本地
+
+var server_head = "http://127.0.0.1:8888/api"; //http  服务器
+
+~~~javascript
+$.ajax({
+              url: "http://192.168.0.180:8081/api/device/getDeviceInfoByUserId?userId="+parseInt(userId),
+
+              //url: "http://127.0.0.1:8888/deviceData/listUserLocation", //本地
+              //data: JSON.stringify(obj),
+              dataType: "json", //返回数据的类型
+              type: "post",  //请求类型
+              // contentType: "application/json", //请求数据的类型
+              success: function(data) {
+                  console.log(data);
+              },
+              error: function(data) {
+                  alert('error');
+              }
+          });
 ~~~
 
 
+
+## AJAX发送成功后自动跳转
+
+~~~
+只要在Ajax的success函数中加入这么一条：
+    // ，登录验证通过，自动跳转到主页面
+    window.location.href = "/student/dashboard";
+只要服务器验证成功，前端的JS就会自动跳转到主页面
+~~~
+
+
+
+## 手机发送ajax失败
+
+把ajax的url中的主机名改为服务端ip地址
+
+[服务端地址](http://127.0.0.1:8888/api)
 
 # [Nginx](https://www.cnblogs.com/jingmoxukong/p/5945200.html)
 

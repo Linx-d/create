@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
+    <title>WeUI</title>
+    <link rel="stylesheet" href="../style/weui.css"/>
+    <link rel="stylesheet" href="./example.css"/>
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=EG4ercSC4ZmBIhIcBvyoj65q12m2fy00"></script>
+    <script src="echarts.min3.js"></script>
+</head>
+<body ontouchstart>
+    <div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+    <div class="container" id="container">
+        <div class="page__bd" style="height: 100%;">
+            <div class="weui-tab">
+                <div class="weui-tab__panel">
+                    <div class="page__hd" style="background-color: #fff; padding: 0;">
+                        <div class="setting_current" style="height: 65px; background-color: #fff; text-align: center; line-height: 65px; font-size: 22px;">
+                             <div>设置</div>
+                        </div>
+                    </div>
+                    <div class="page__bd" style="width: 100%; height: 94%;">
+                        <div class="weui-cells__title">点击地图选取电子围栏中心坐标</div>
+                        <div class="weui-cells">
+                            <div class="weui-cell weui-cell_active">
+                              <img src="./images/setting.png" alt="" style="width: 20px; margin-right: 16px; display: block;">
+                                <div class="weui-cell__hd"><label class="weui-label">半径</label></div>
+                                <div class="weui-cell__bd">
+                                    <input class="weui-input" name="radius" type="number" pattern="[0-9]*" placeholder="500"/>
+                                </div>
+                                <span>m</span>
+                            </div>
+                            <a href="javascript:" class="weui-btn weui-btn_primary" id="my_setting" style="width: 95%;">确定</a>
+                        </div>
+                        <div id="setting_path" style="display: block; height: 100%; width: 100%;"></div>
+                    </div>
+                    <!--BEGIN dialog2-->
+                    <div class="js_dialog" id="Dialog_no" style="display: none;">
+                        <div class="weui-mask"></div>
+                        <div class="weui-dialog">
+                            <div class="weui-dialog__bd">请选取电子围栏中心坐标</div>
+                            <div class="weui-dialog__ft">
+                                <a href="javascript:" class="weui-dialog__btn weui-dialog__btn_primary" id="close_no">知道了</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--BEGIN dialog3-->
+                    <div class="js_dialog" id="androidDialog1" style="display: none;">
+                        <div class="weui-mask"></div>
+                        <div class="weui-dialog weui-skin_android" style="background-color: rgba(0, 0, 0, 0.5);">
+                            <div class="weui-dialog__hd"><strong class="weui-dialog__title">围栏中心坐标</strong></div>
+                            <div class="weui-dialog__bd weui-cells" style="padding: 0; margin-bottom: 30px;">
+                                <div class="weui-cell ">
+                                    <div class="weui-cell__bd">
+                                        <p>电子围栏中心坐标</p>
+                                    </div>
+                                    <div class="weui-cell__ft">说明文字</div>
+                                </div>
+                                <div class="weui-cell ">
+                                    <div class="weui-cell__bd">
+                                        <p>电子围栏半径</p>
+                                    </div>
+                                    <div class="weui-cell__ft">说明文字</div>
+                                </div>
+                            </div>
+                            <div class="weui-dialog__ft">
+                                <a href="javascript:" id="s_back" class="weui-dialog__btn weui-dialog__btn_default">返回</a>
+                                <a href="javascript:" id="s_sure" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--END dialog3-->
+                </div>
+                <div class="weui-tabbar" id="tabbar_my">
+                    <a href="./index.html" class="weui-tabbar__item">
+                        <img src="./images/home.png" alt="" class="weui-tabbar__icon">
+                        <p class="weui-tabbar__label">首页</p>
+                    </a>
+                    <a href="./map.html" class="weui-tabbar__item">
+                        <img src="./images/map.png" alt="" class="weui-tabbar__icon">
+                        <p class="weui-tabbar__label">地图</p>
+                    </a>
+                    <a href="./setting.html" class="weui-tabbar__item weui-bar__item_on">
+                        <img src="./images/setting.png" alt="" class="weui-tabbar__icon">
+                        <p class="weui-tabbar__label">设置</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/html" id="tpl_home">
+
+
+<script type="text/javascript">
+    /*百度地图API功能*/
+    $(function(){
+            //ajax url
+            var url_head = "http://192.168.0.180:8081/api"; //http
+            var send_change = "/rail/updateRail"; //修改围栏参数
+            var url_post = url_head + send_change;
+            /*---------------设置 电子围栏---------------*/
+            // 百度地图API功能 setting_path  确定: my_setting
+              // 百度地图API功能
+                var map = new BMap.Map("setting_path");
+                var point = new BMap.Point(106.530, 29.825);
+                var longitude;
+                var latitude;
+                var radius;
+                //var pointArray = [];
+                map.centerAndZoom(point, 15);
+                //单击获取点击的经纬度
+                map.addEventListener("click",function(e){
+                  longitude = e.point.lng;
+                  latitude = e.point.lat;
+                  
+                  
+                  //marker.disableMassClear();//禁止标注覆盖物在 map.clearOverlays 方法中被清除
+                  
+                  //完成了
+                  /*var $toast = $('#toast');
+                  if ($toast.css('display') != 'none') return;
+
+                  $toast.fadeIn(100);
+                  setTimeout(function () {
+                      $toast.fadeOut(100);
+                  }, 1000);*/
+
+                  // androidDialog1
+                  $('#androidDialog1').css("display", "block");
+                });
+                //确认
+                $('#s_sure').on('click', function() {
+                    var marker = new BMap.Marker(new BMap.Point(longitude, latitude)); // 创建点
+                    map.addOverlay(marker);            //增加点
+                    $("#androidDialog1").css("display", "none");
+                    showFence();
+                });
+                //返回
+                $('#s_back').on('click', function() {
+                    $("#androidDialog1").css("display", "none");
+                });
+                $('#my_setting').on('click', showFence);
+                //显示电子围栏函数
+                function showFence() {
+                    /*检测电子围栏中心坐标是否选取*/
+                  if(!longitude && !latitude) {
+                    $('#Dialog_no').css("display", "block");
+                  }
+                  //清楚覆盖物
+                  remove_overlay(); //删除圆
+                  //var marker = new BMap.Marker(new BMap.Point(106.530, 29.825)); // 创建点
+                  radius = parseFloat($("input[name='radius']").val()) || 500;
+                  var point = new BMap.Point(longitude, latitude);
+                  var circle = new BMap.Circle(point,radius,{strokeColor:"blue", strokeWeight:2, strokeOpacity:0.5}); //创建圆
+                  //pointArray.push(point); //让标注在视野范围内
+                  //map.setViewport(pointArray);//让标注在视野范围内
+                  //添加覆盖物
+                  function add_overlay(){
+                    //map.addOverlay(marker);            //增加点
+                    map.addOverlay(circle);            //增加圆
+                  }
+                  //清除覆盖物
+                  function remove_overlay(cover){ //cover具体覆盖物
+                    map.clearOverlays(cover);         
+                  }
+                  add_overlay();
+                  //console.log(map);
+                  //console.log(point);
+                  /*设置电子围栏*/
+                  var obj = {
+                        "latitude": latitude,
+                        "longitude": longitude,
+                        "radius": radius,
+                        "userId": 2
+                    };
+                  $.ajax({
+                    url: url_post,
+                    type: "post", //请求类型
+                    data: JSON.stringify(obj), //参数
+                    dataType: "json", //发送请求的内容类型
+                    contentType: "application/json", //返回的数据类型
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(data) {
+                        alert('error');
+                    }
+                  }); 
+                  }
+
+                //添加点击地图监听事件，点击地图后显示当前经纬度
+                /*function showInfo(e){
+                    alert(e.point.lng + ", " + e.point.lat);
+                  }
+                  */
+                  //map.addEventListener("click", showFence);  //点击地图设置电子围栏 暂时取消
+
+                  //知道了
+                  $('#close_no').on('click', function() {
+                    $('#Dialog_no').css("display", "none");
+                  });
+
+                  //完成了
+
+    });
+
+    $(function(){
+        var winH = $(window).height();
+        var categorySpace = 10;
+
+        $('.js_item').on('click', function(){
+            var id = $(this).data('id');
+            window.pageManager.go(id);
+        });
+        $('.js_category').on('click', function(){
+            var $this = $(this),
+                $inner = $this.next('.js_categoryInner'),
+                $page = $this.parents('.page'),
+                $parent = $(this).parent('li');
+            var innerH = $inner.data('height');
+
+            if(!innerH){
+                $inner.css('height', 'auto');
+                innerH = $inner.height();
+                $inner.removeAttr('style');
+                $inner.data('height', innerH);
+            }
+
+            if($parent.hasClass('js_show')){
+                $parent.removeClass('js_show');
+            }else{
+                $parent.siblings().removeClass('js_show');
+
+                $parent.addClass('js_show');
+                if(this.offsetTop + this.offsetHeight + innerH > $page.scrollTop() + winH){
+                    var scrollTop = this.offsetTop + this.offsetHeight + innerH - winH + categorySpace;
+
+                    if(scrollTop > this.offsetTop){
+                        scrollTop = this.offsetTop - categorySpace;
+                    }
+
+                    $page.scrollTop(scrollTop);
+                }
+            }
+
+            var winH = $(window).height();
+            var $foot = $('body').find('.page__ft');
+            if($foot.length < 1) return;
+
+            if($foot.position().top + $foot.height() < winH){
+                $foot.addClass('j_bottom');
+            }else{
+                $foot.removeClass('j_bottom');
+            }
+        });
+    });
+</script>
+<style scoped>
+/*---------------------icon start 定义使用 iconfont 的样式------------------------*/
+    @font-face {
+      font-family: 'iconfont';
+      src: url('iconfont.eot');
+      src: url('iconfont.eot?#iefix') format('embedded-opentype'),
+          url('iconfont.woff2') format('woff2'),
+          url('iconfont.woff') format('woff'),
+          url('iconfont.ttf') format('truetype'),
+          url('iconfont.svg#iconfont') format('svg');
+    }
+    .iconfont {
+      font-family: "iconfont" !important;
+      font-size: 16px;
+      font-style: normal;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+/*---------------------icon end------------------------*/
+    .weui-tabbar__item .weui-tabbar__label {
+        color: #929292;
+    }
+    .weui-bar__item_on{
+        color: #4377ff;
+    }
+    .page {
+    }
+/*---------------------tabbar------------------------*/
+    .weui-tabbar {
+        background-color: #fff;
+    }
+
+/*---------------------grid------------------------*/
+    .weui-grids .weui-grid {
+        background-color: #fff;
+    }
+    .BMap_cpyCtrl {
+      display: none;
+    }
+</style>
+</script>
+    <script src="./zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
+    <script src="./example.js"></script>
+</body>
+</html>

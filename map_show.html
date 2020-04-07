@@ -1,0 +1,191 @@
+<div class="page__hd">
+    <h1 class="page__title">地图用户详情</h1>
+</div>
+<div class="page__bd">
+    <div class="weui-cells__title">用户详细信息</div>
+    <div class="weui-cells">
+        <a class="weui-cell  weui-cell_access" href="javascript:">
+            <div class="weui-cell__bd">
+                <p>头像</p>
+            </div>
+            <div class="weui-cell__ft" id="img">图片</div>
+        </a>
+        <a class="weui-cell  weui-cell_access" href="javascript:">
+            <div class="weui-cell__bd">
+                <p>姓名</p>
+            </div>
+            <div class="weui-cell__ft" id="name"></div>
+        </a>
+        <a class="weui-cell  weui-cell_access" href="javascript:">
+            <div class="weui-cell__bd">
+                <p>年龄</p>
+            </div>
+            <div class="weui-cell__ft"  id="age"></div>
+        </a>
+        <a class="weui-cell  weui-cell_access" href="javascript:">
+            <div class="weui-cell__bd">
+                <p>性别</p>
+            </div>
+            <div class="weui-cell__ft" id="sex"></div>
+        </a>
+        <!--/device/getDeviceInfoByUserId?userId=2-->
+    </div>
+
+    <div class="weui-cells__title">防疫信息</div>
+    <div class="weui-cells">
+        <a class="weui-cell  weui-cell_access" href="javascript:">
+            <div class="weui-cell__bd">
+                <p>体温</p>
+            </div>
+            <div class="weui-cell__ft" id="temperature"></div>
+        </a>
+        <a class="weui-cell  weui-cell_access" href="javascript:">
+            <div class="weui-cell__bd">
+                <p>online</p>
+            </div>
+            <div class="weui-cell__ft" id="online"></div>
+        </a>
+        <a class="weui-cell  weui-cell_access" href="javascript:">
+            <div class="weui-cell__bd">
+                <p>tnumber</p>
+            </div>
+            <div class="weui-cell__ft" id="tnumber"></div>
+        </a>
+        <a class="weui-cell  weui-cell_access" href="javascript:">
+            <div class="weui-cell__bd">
+                <p>pnumber</p>
+            </div>
+            <div class="weui-cell__ft" id="pnumber"></div>
+        </a>
+        <!--/device/getDeviceInfoByUserId?userId=2-->
+    </div>
+
+    <div class="weui-cells__title">历史数据</div>
+    <div class="weui-cells">
+        <div class="weui-cell  weui-cell_access" id="baidu_echarts" style="width: 100%; height: 420px; background-color: #fff;"></div>
+    </div>
+
+    <div class="weui-cells__title">隔离情况</div>
+    <div class="weui-cells">
+        <a class="weui-cell  weui-cell_access" href="javascript:">
+            <div class="weui-cell__bd">
+                <p>隔离时间</p>
+            </div>
+            <div class="weui-cell__ft">14天</div>
+        </a>
+        <a class="weui-cell  weui-cell_access" href="javascript:">
+            <div class="weui-cell__bd">
+                <p>是否离开隔离区域</p>
+            </div>
+            <div class="weui-cell__ft">否</div>
+        </a>
+    </div>
+
+    <div class="weui-cells__title">开关</div>
+    <div class="weui-cells weui-cells_form">
+        <div class="weui-cell weui-cell_active weui-cell_switch">
+            <div class="weui-cell__bd">是否隔离</div>
+            <div class="weui-cell__ft">
+                <label for="switchCP" class="weui-switch-cp">
+                    <input id="switchCP" class="weui-switch-cp__input" type="checkbox" checked="checked"/>
+                    <div class="weui-switch-cp__box"></div>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<script type="text/javascript">
+    //echarts 图标
+    // 基于准备好的dom，初始化echarts实例
+
+            var myChart = echarts.init(document.getElementById('baidu_echarts'));
+
+            // 指定图表的配置项和数据
+            var option = {
+                title: {
+                    text: '体温变化',
+                    subtext: '疫情防控'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data: ['最高温度', '最低温度'] //定义曲线具体数据
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        dataView: {readOnly: false},
+                        magicType: {type: ['line', 'bar']},
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+                },
+                yAxis: {
+                    type: 'value',
+                    axisLabel: {
+                        formatter: '{value} °C' //Y坐标
+                    }
+                },
+                series: [
+                    {
+                        name: '',
+                        type: 'line',
+                        data: [37, 36.5, 36.2, 36.4, 36.5, 37.5, 37.0],
+                        markPoint: {
+                            data: [
+                                {type: 'max', name: '最大值'},
+                                {type: 'min', name: '最小值'}
+                            ]
+                        },
+                        markLine: {
+                            data: [
+                                //{type: 'average', name: '平均值'}设置标线类型
+                                {yAxis: 37.0}//设置标线
+                            ]
+                        }
+                    }/*最低温度,
+                    {
+                        name: '最低温度',
+                        type: 'line',
+                        data: [1, -2, 2, 5, 3, 2, 0],
+                        markPoint: {
+                            data: [
+                                {name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
+                            ]
+                        },
+                        markLine: {
+                            data: [
+                                {type: 'average', name: '平均值'},
+                                [{
+                                    symbol: 'none',
+                                    x: '90%',
+                                    yAxis: 'max'
+                                }, {
+                                    symbol: 'circle',
+                                    label: {
+                                        position: 'start',
+                                        formatter: '最大值'
+                                    },
+                                    type: 'max',
+                                    name: '最高点'
+                                }]
+                            ]
+                        }
+                    }*/
+                ]
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            myChart.setOption(option);
+</script>
+<!-----------------自定义 template  end------------------>

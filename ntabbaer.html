@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
+    <title>WeUI</title>
+    <link rel="stylesheet" href="../style/weui.css"/>
+    <link rel="stylesheet" href="./example.css"/>
+    <script type="text/javascript" src="//api.map.baidu.com/api?v=2.0&ak=EG4ercSC4ZmBIhIcBvyoj65q12m2fy00"></script>
+    <script src="echarts.min3.js"></script>
+</head>
+<body ontouchstart>
+    <div class="weui-toptips weui-toptips_warn js_tooltips">错误提示</div>
+    <div class="container" id="container">
+      <div class="page__bd" style="height: 100%;">
+        show
+      </div>
+    </div>
+
+    <script type="text/html" id="tpl_home">
+
+
+<script type="text/javascript">
+    $(function(){
+        
+    });
+    $(function(){
+        var winH = $(window).height();
+        var categorySpace = 10;
+
+        $('.js_item').on('click', function(){
+            var id = $(this).data('id');
+            window.pageManager.go(id);
+        });
+        $('.js_category').on('click', function(){
+            var $this = $(this),
+                $inner = $this.next('.js_categoryInner'),
+                $page = $this.parents('.page'),
+                $parent = $(this).parent('li');
+            var innerH = $inner.data('height');
+
+            if(!innerH){
+                $inner.css('height', 'auto');
+                innerH = $inner.height();
+                $inner.removeAttr('style');
+                $inner.data('height', innerH);
+            }
+
+            if($parent.hasClass('js_show')){
+                $parent.removeClass('js_show');
+            }else{
+                $parent.siblings().removeClass('js_show');
+
+                $parent.addClass('js_show');
+                if(this.offsetTop + this.offsetHeight + innerH > $page.scrollTop() + winH){
+                    var scrollTop = this.offsetTop + this.offsetHeight + innerH - winH + categorySpace;
+
+                    if(scrollTop > this.offsetTop){
+                        scrollTop = this.offsetTop - categorySpace;
+                    }
+
+                    $page.scrollTop(scrollTop);
+                }
+            }
+
+            var winH = $(window).height();
+            var $foot = $('body').find('.page__ft');
+            if($foot.length < 1) return;
+
+            if($foot.position().top + $foot.height() < winH){
+                $foot.addClass('j_bottom');
+            }else{
+                $foot.removeClass('j_bottom');
+            }
+        });
+    });
+
+    
+</script>
+<style scoped>
+/*---------------------icon start 定义使用 iconfont 的样式------------------------*/
+    @font-face {
+      font-family: 'iconfont';
+      src: url('iconfont.eot');
+      src: url('iconfont.eot?#iefix') format('embedded-opentype'),
+          url('iconfont.woff2') format('woff2'),
+          url('iconfont.woff') format('woff'),
+          url('iconfont.ttf') format('truetype'),
+          url('iconfont.svg#iconfont') format('svg');
+    }
+    .iconfont {
+      font-family: "iconfont" !important;
+      font-size: 16px;
+      font-style: normal;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+/*---------------------icon end------------------------*/
+    .weui-tabbar__item .weui-tabbar__label {
+        color: #929292;
+    }
+    .weui-bar__item_on{
+        color: #4377ff;
+    }
+    .page {
+    }
+/*---------------------tabbar------------------------*/
+    .weui-tabbar {
+        background-color: #fff;
+    }
+
+/*---------------------grid------------------------*/
+    .weui-grids .weui-grid {
+        background-color: #fff;
+    }
+    .BMap_cpyCtrl {
+      display: none;
+    }
+</style>
+</script>
+    <script src="./zepto.min.js"></script>
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="https://res.wx.qq.com/open/libs/weuijs/1.2.1/weui.min.js"></script>
+    <script src="./example.js"></script>
+</body>
+</html>
