@@ -419,10 +419,25 @@ yAxis: {
 
 
 ~~~
-git commit -m "具体哪页--- 实现了什么功能"
+git commit -m "[]具体哪页--- 实现了什么功能"
 注：具体哪页首字母大写。
 例：
-git  commit -m " Map--- map chart"
+git  commit -m "[]Map--- map chart"
+~~~
+
+
+
+git push失败时，可能是权限问题，在.git文件下的config文件 修改
+
+~~~
+//url = http://lixin@192.168.0.222:3000/lixin/UTprevention.git 在192.168.之前加上用户名以及@
+
+[remote "origin"]
+	url = http://lixin@192.168.0.222:3000/lixin/UTprevention.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
 ~~~
 
 
